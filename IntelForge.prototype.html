@@ -1,0 +1,1935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic ResearchPilot | Quantum Research Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cosmic-purple: #7B2CBF;
+            --neon-pink: #FF2E93;
+            --cyber-blue: #00F5FF;
+            --star-yellow: #FFD166;
+            --galaxy-black: #0A0A1A;
+            --nebula-violet: #9D4EDD;
+            --quantum-green: #06D6A0;
+            --cosmic-gradient: linear-gradient(135deg, #7B2CBF 0%, #3A0CA3 30%, #4361EE 70%, #4CC9F0 100%);
+            --galaxy-bg: radial-gradient(ellipse at center, #0A0A1A 0%, #04040E 70%, #020208 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Exo 2', sans-serif;
+            line-height: 1.6;
+            color: #E0E0FF;
+            background: var(--galaxy-bg);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Animated cosmic background */
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        .nebula {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.15;
+            animation: float 25s infinite linear;
+        }
+        
+        .nebula-1 {
+            background: var(--neon-pink);
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+        
+        .nebula-2 {
+            background: var(--cyber-blue);
+            top: 60%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+        
+        .nebula-3 {
+            background: var(--quantum-green);
+            bottom: 10%;
+            left: 20%;
+            animation-delay: 10s;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, 50px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+        
+        /* Navigation */
+        .cosmic-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background: rgba(10, 10, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(123, 44, 191, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .nav-brand {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--cosmic-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(123, 44, 191, 0.5);
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+        
+        .nav-menu a {
+            color: #B8B8FF;
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .nav-menu a:hover, .nav-menu a.active {
+            color: white;
+            background: rgba(123, 44, 191, 0.2);
+            border: 1px solid rgba(123, 44, 191, 0.5);
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--cosmic-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid var(--cyber-blue);
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Main Dashboard Layout */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 280px 1fr 350px;
+            gap: 30px;
+            height: calc(100vh - 120px);
+        }
+        
+        @media (max-width: 1400px) {
+            .dashboard {
+                grid-template-columns: 250px 1fr;
+            }
+            .right-sidebar {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            .left-sidebar {
+                display: none;
+            }
+        }
+        
+        /* Sidebars */
+        .left-sidebar, .right-sidebar {
+            background: rgba(10, 10, 26, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            border: 1px solid rgba(123, 44, 191, 0.3);
+            box-shadow: 0 0 40px rgba(123, 44, 191, 0.2);
+            padding: 25px;
+            overflow-y: auto;
+        }
+        
+        .sidebar-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            color: var(--cyber-blue);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Workspace Management */
+        .workspace-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .workspace-item {
+            padding: 15px;
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .workspace-item:hover {
+            border-color: var(--cyber-blue);
+            transform: translateX(5px);
+        }
+        
+        .workspace-item.active {
+            border-color: var(--neon-pink);
+            background: rgba(123, 44, 191, 0.15);
+        }
+        
+        .workspace-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #F0F0FF;
+        }
+        
+        .workspace-meta {
+            font-size: 0.85rem;
+            color: #A0A0FF;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .new-workspace-btn {
+            width: 100%;
+            padding: 15px;
+            border-radius: 15px;
+            background: rgba(0, 245, 255, 0.1);
+            border: 2px dashed var(--cyber-blue);
+            color: var(--cyber-blue);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .new-workspace-btn:hover {
+            background: rgba(0, 245, 255, 0.2);
+        }
+        
+        /* Conversation History */
+        .conversation-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .conversation-item {
+            padding: 15px;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+        
+        .conversation-item:hover {
+            background: rgba(123, 44, 191, 0.1);
+            border-left-color: var(--neon-pink);
+        }
+        
+        .conversation-preview {
+            font-size: 0.9rem;
+            color: #B8B8FF;
+            margin-top: 8px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        /* Main Content Area */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        /* Research Search Panel */
+        .search-panel {
+            background: rgba(10, 10, 26, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            border: 1px solid rgba(123, 44, 191, 0.3);
+            box-shadow: 0 0 40px rgba(123, 44, 191, 0.2);
+            padding: 25px;
+        }
+        
+        .search-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .search-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--cyber-blue);
+        }
+        
+        .search-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .search-tab {
+            padding: 10px 20px;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid transparent;
+            color: #B8B8FF;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .search-tab.active {
+            background: rgba(123, 44, 191, 0.2);
+            border-color: var(--neon-pink);
+            color: white;
+        }
+        
+        .search-box {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 18px 25px;
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            border-radius: 15px;
+            font-size: 1rem;
+            font-family: 'Exo 2', sans-serif;
+            background: rgba(0, 0, 0, 0.4);
+            color: #E0E0FF;
+            transition: all 0.3s;
+            outline: none;
+        }
+        
+        .search-input:focus {
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 20px rgba(255, 46, 147, 0.3);
+        }
+        
+        .search-btn {
+            background: var(--cosmic-gradient);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 0 30px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        /* Import Panel */
+        .import-panel {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .import-option {
+            flex: 1;
+            min-width: 200px;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 245, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .import-option:hover {
+            border-color: var(--quantum-green);
+            transform: translateY(-5px);
+        }
+        
+        /* Chat Interface */
+        .chat-container {
+            flex: 1;
+            background: rgba(10, 10, 26, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            border: 1px solid rgba(123, 44, 191, 0.3);
+            box-shadow: 0 0 40px rgba(123, 44, 191, 0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .chat-header {
+            background: rgba(123, 44, 191, 0.2);
+            padding: 20px 30px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: var(--cyber-blue);
+            border-bottom: 1px solid rgba(0, 245, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .context-indicator {
+            font-size: 0.9rem;
+            color: var(--quantum-green);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .chat-messages::-webkit-scrollbar-track {
+            background: rgba(123, 44, 191, 0.1);
+            border-radius: 10px;
+        }
+        
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: var(--cosmic-purple);
+            border-radius: 10px;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 18px 22px;
+            border-radius: 20px;
+            line-height: 1.5;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .user-message {
+            align-self: flex-end;
+            background: rgba(0, 245, 255, 0.15);
+            border: 1px solid rgba(0, 245, 255, 0.4);
+            color: #E0FFFF;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .ai-message {
+            align-self: flex-start;
+            background: rgba(123, 44, 191, 0.15);
+            border: 1px solid rgba(123, 44, 191, 0.4);
+            color: #F0E6FF;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .message-context {
+            font-size: 0.8rem;
+            color: var(--star-yellow);
+            margin-top: 8px;
+            font-style: italic;
+        }
+        
+        .chat-input-container {
+            border-top: 1px solid rgba(123, 44, 191, 0.3);
+            padding: 20px 25px;
+            display: flex;
+            gap: 15px;
+            background: rgba(10, 10, 26, 0.5);
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 18px 25px;
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            border-radius: 15px;
+            font-size: 1rem;
+            font-family: 'Exo 2', sans-serif;
+            background: rgba(0, 0, 0, 0.4);
+            color: #E0E0FF;
+            transition: all 0.3s;
+            outline: none;
+        }
+        
+        .send-btn {
+            background: var(--cosmic-gradient);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 0 30px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Right Sidebar - Papers & Vector Search */
+        .papers-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .paper-item {
+            padding: 15px;
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .paper-item:hover {
+            border-color: var(--quantum-green);
+        }
+        
+        .paper-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #F0F0FF;
+            font-size: 0.95rem;
+        }
+        
+        .paper-meta {
+            font-size: 0.8rem;
+            color: #A0A0FF;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .vector-search {
+            margin-top: 30px;
+        }
+        
+        .vector-input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(6, 214, 160, 0.3);
+            color: #E0E0FF;
+            margin-bottom: 15px;
+        }
+        
+        .vector-results {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .vector-result {
+            padding: 12px;
+            border-radius: 10px;
+            background: rgba(6, 214, 160, 0.1);
+            border: 1px solid rgba(6, 214, 160, 0.3);
+            font-size: 0.9rem;
+        }
+        
+        /* Auth Modal */
+        .auth-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        
+        .auth-container {
+            background: rgba(10, 10, 26, 0.95);
+            border-radius: 30px;
+            border: 1px solid rgba(123, 44, 191, 0.5);
+            box-shadow: 0 0 60px rgba(123, 44, 191, 0.5);
+            width: 450px;
+            padding: 40px;
+            position: relative;
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(123, 44, 191, 0.3);
+        }
+        
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            color: #B8B8FF;
+            cursor: pointer;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .auth-tab.active {
+            color: white;
+            border-bottom: 2px solid var(--neon-pink);
+        }
+        
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .form-group label {
+            color: #B8B8FF;
+            font-size: 0.9rem;
+        }
+        
+        .form-input {
+            padding: 15px 20px;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            color: #E0E0FF;
+            font-family: 'Exo 2', sans-serif;
+            transition: all 0.3s;
+        }
+        
+        .form-input:focus {
+            border-color: var(--neon-pink);
+            outline: none;
+        }
+        
+        .auth-btn {
+            background: var(--cosmic-gradient);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 18px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #8888CC;
+            font-size: 0.9rem;
+        }
+        
+        /* Quantum Status */
+        .quantum-status {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--quantum-green);
+            font-size: 0.9rem;
+        }
+        
+        .quantum-pulse {
+            width: 12px;
+            height: 12px;
+            background-color: var(--quantum-green);
+            border-radius: 50%;
+            animation: quantum-pulse 1.5s infinite;
+            box-shadow: 0 0 10px var(--quantum-green);
+        }
+        
+        @keyframes quantum-pulse {
+            0%, 100% { 
+                opacity: 0.6; 
+                box-shadow: 0 0 5px var(--quantum-green);
+            }
+            50% { 
+                opacity: 1; 
+                box-shadow: 0 0 20px var(--quantum-green);
+            }
+        }
+        
+        /* Typing indicator */
+        .quantum-typing {
+            display: flex;
+            gap: 8px;
+            padding: 15px 20px;
+            background: rgba(123, 44, 191, 0.15);
+            border-radius: 20px;
+            width: fit-content;
+            margin-bottom: 10px;
+            border: 1px solid rgba(123, 44, 191, 0.3);
+        }
+        
+        .quantum-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--cyber-blue);
+            animation: quantum-bounce 1.4s infinite;
+            box-shadow: 0 0 8px var(--cyber-blue);
+        }
+        
+        @keyframes quantum-bounce {
+            0%, 60%, 100% { 
+                transform: translateY(0); 
+                box-shadow: 0 0 8px var(--cyber-blue);
+            }
+            30% { 
+                transform: translateY(-10px); 
+                box-shadow: 0 0 15px var(--cyber-blue);
+            }
+        }
+        
+        /* Workspace Modal */
+        .workspace-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        
+        .workspace-form {
+            background: rgba(10, 10, 26, 0.95);
+            border-radius: 30px;
+            border: 1px solid rgba(123, 44, 191, 0.5);
+            box-shadow: 0 0 60px rgba(123, 44, 191, 0.5);
+            width: 500px;
+            padding: 40px;
+        }
+        
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+        
+        .btn-secondary {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--cyber-blue);
+            color: var(--cyber-blue);
+        }
+        
+        .section-divider {
+            height: 1px;
+            background: rgba(123, 44, 191, 0.3);
+            margin: 25px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated cosmic background -->
+    <div class="cosmic-bg" id="cosmicBg"></div>
+    
+    <!-- Authentication Modal (shown by default) -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-container">
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="loginTab">QUANTUM LOGIN</div>
+                <div class="auth-tab" id="registerTab">DIMENSIONAL REGISTRATION</div>
+            </div>
+            
+            <div class="auth-form" id="loginForm">
+                <div class="form-group">
+                    <label>QUANTUM IDENTIFIER</label>
+                    <input type="text" class="form-input" id="loginEmail" placeholder="your@quantum.mail">
+                </div>
+                <div class="form-group">
+                    <label>TEMPORAL PASSKEY</label>
+                    <input type="password" class="form-input" id="loginPassword" placeholder="••••••••">
+                </div>
+                <button class="auth-btn" id="loginBtn">INITIATE QUANTUM ENTRY</button>
+                
+                <div class="auth-footer">
+                    <p>First time in the multiverse? <a href="#" id="switchToRegister">Create dimensional identity</a></p>
+                </div>
+            </div>
+            
+            <div class="auth-form hidden" id="registerForm">
+                <div class="form-group">
+                    <label>RESEARCHER DESIGNATION</label>
+                    <input type="text" class="form-input" id="registerName" placeholder="Dr. Quantum Researcher">
+                </div>
+                <div class="form-group">
+                    <label>QUANTUM IDENTIFIER</label>
+                    <input type="email" class="form-input" id="registerEmail" placeholder="your@quantum.mail">
+                </div>
+                <div class="form-group">
+                    <label>CREATE TEMPORAL PASSKEY</label>
+                    <input type="password" class="form-input" id="registerPassword" placeholder="••••••••">
+                </div>
+                <div class="form-group">
+                    <label>CONFIRM TEMPORAL PASSKEY</label>
+                    <input type="password" class="form-input" id="registerConfirm" placeholder="••••••••">
+                </div>
+                <button class="auth-btn" id="registerBtn">ESTABLISH DIMENSIONAL IDENTITY</button>
+                
+                <div class="auth-footer">
+                    <p>Already have quantum access? <a href="#" id="switchToLogin">Return to login portal</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Workspace Creation Modal -->
+    <div class="workspace-modal hidden" id="workspaceModal">
+        <div class="workspace-form">
+            <h2 class="sidebar-title" style="margin-bottom: 25px;">
+                <i class="fas fa-plus"></i> CREATE NEW WORKSPACE
+            </h2>
+            
+            <div class="form-group">
+                <label>WORKSPACE DESIGNATION</label>
+                <input type="text" class="form-input" id="workspaceName" placeholder="Quantum Biology Research">
+            </div>
+            
+            <div class="form-group">
+                <label>DIMENSIONAL DOMAIN</label>
+                <select class="form-input" id="workspaceDomain">
+                    <option value="quantum">Quantum Physics</option>
+                    <option value="biology">Quantum Biology</option>
+                    <option value="ai">AI & Consciousness</option>
+                    <option value="cosmology">Cosmic Studies</option>
+                    <option value="other">Multidimensional Research</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>DESCRIPTION (OPTIONAL)</label>
+                <textarea class="form-input" id="workspaceDescription" rows="3" placeholder="Describe your research focus across dimensions..."></textarea>
+            </div>
+            
+            <div style="display: flex; gap: 15px; margin-top: 25px;">
+                <button class="auth-btn" id="createWorkspaceBtn" style="flex: 1;">INITIALIZE WORKSPACE</button>
+                <button class="auth-btn btn-secondary" id="cancelWorkspaceBtn" style="flex: 1;">CANCEL</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Application (hidden until authenticated) -->
+    <div class="app-container hidden" id="appContainer">
+        <!-- Navigation -->
+        <nav class="cosmic-nav">
+            <div class="nav-left">
+                <div class="nav-brand">COSMIC RESEARCHPILOT</div>
+                <ul class="nav-menu">
+                    <li><a href="#" class="active" data-tab="dashboard">DASHBOARD</a></li>
+                    <li><a href="#" data-tab="research">RESEARCH</a></li>
+                    <li><a href="#" data-tab="papers">PAPERS</a></li>
+                    <li><a href="#" data-tab="analytics">ANALYTICS</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-right">
+                <div class="quantum-status">
+                    <div class="quantum-pulse"></div>
+                    <span>QUANTUM CORE: ACTIVE</span>
+                </div>
+                <div class="user-avatar" id="userAvatar">QR</div>
+            </div>
+        </nav>
+        
+        <!-- Main Dashboard -->
+        <div class="container">
+            <div class="dashboard">
+                <!-- Left Sidebar: Workspaces -->
+                <div class="left-sidebar">
+                    <div class="sidebar-title">
+                        <i class="fas fa-universe"></i> WORKSPACES
+                    </div>
+                    
+                    <div class="workspace-list" id="workspaceList">
+                        <!-- Workspace items will be added here -->
+                    </div>
+                    
+                    <button class="new-workspace-btn" id="newWorkspaceBtn">
+                        <i class="fas fa-plus"></i> NEW DIMENSIONAL WORKSPACE
+                    </button>
+                    
+                    <div class="section-divider"></div>
+                    
+                    <div class="sidebar-title">
+                        <i class="fas fa-history"></i> RECENT CONVERSATIONS
+                    </div>
+                    
+                    <div class="conversation-list" id="conversationList">
+                        <!-- Conversation history will be added here -->
+                    </div>
+                </div>
+                
+                <!-- Main Content -->
+                <div class="main-content">
+                    <!-- Research Search & Import -->
+                    <div class="search-panel">
+                        <div class="search-header">
+                            <div class="search-title">MULTIDIMENSIONAL RESEARCH SEARCH</div>
+                            <div class="context-indicator">
+                                <i class="fas fa-brain-circuit"></i>
+                                <span>CONTEXT: <span id="currentContext">Quantum Biology</span></span>
+                            </div>
+                        </div>
+                        
+                        <div class="search-tabs">
+                            <div class="search-tab active" data-search-type="semantic">SEMANTIC SEARCH</div>
+                            <div class="search-tab" data-search-type="vector">VECTOR SEARCH</div>
+                            <div class="search-tab" data-search-type="import">IMPORT PAPERS</div>
+                        </div>
+                        
+                        <div class="search-box">
+                            <input type="text" class="search-input" id="searchInput" placeholder="Enter quantum research query across dimensions...">
+                            <button class="search-btn" id="searchBtn">
+                                <i class="fas fa-search"></i> TRAVERSE
+                            </button>
+                        </div>
+                        
+                        <!-- Import Options (shown when import tab is active) -->
+                        <div class="import-panel hidden" id="importPanel">
+                            <div class="import-option" data-import-type="arxiv">
+                                <i class="fas fa-atom" style="font-size: 2rem; color: var(--neon-pink); margin-bottom: 10px;"></i>
+                                <div style="font-weight: 600; margin-bottom: 5px;">arXiv IMPORT</div>
+                                <div style="font-size: 0.9rem; color: #B8B8FF;">Import from arXiv quantum archives</div>
+                            </div>
+                            
+                            <div class="import-option" data-import-type="doi">
+                                <i class="fas fa-fingerprint" style="font-size: 2rem; color: var(--cyber-blue); margin-bottom: 10px;"></i>
+                                <div style="font-weight: 600; margin-bottom: 5px;">DOI IMPORT</div>
+                                <div style="font-size: 0.9rem; color: #B8B8FF;">Import by DOI identifier</div>
+                            </div>
+                            
+                            <div class="import-option" data-import-type="upload">
+                                <i class="fas fa-upload" style="font-size: 2rem; color: var(--quantum-green); margin-bottom: 10px;"></i>
+                                <div style="font-weight: 600; margin-bottom: 5px;">UPLOAD PDF</div>
+                                <div style="font-size: 0.9rem; color: #B8B8FF;">Upload research paper PDF</div>
+                            </div>
+                            
+                            <div class="import-option" data-import-type="bibtex">
+                                <i class="fas fa-book" style="font-size: 2rem; color: var(--star-yellow); margin-bottom: 10px;"></i>
+                                <div style="font-weight: 600; margin-bottom: 5px;">BIBTEX IMPORT</div>
+                                <div style="font-size: 0.9rem; color: #B8B8FF;">Import BibTeX bibliography</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- AI Chat Interface -->
+                    <div class="chat-container">
+                        <div class="chat-header">
+                            <div>
+                                <i class="fas fa-brain-circuit"></i> QUANTUM COGNITIVE INTERFACE
+                            </div>
+                            <div class="context-indicator">
+                                <i class="fas fa-database"></i>
+                                <span>CONTEXT AWARE: <span id="contextPapers">3</span> PAPERS LOADED</span>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-messages" id="chatMessages">
+                            <!-- Messages will be added here -->
+                        </div>
+                        
+                        <div class="chat-input-container">
+                            <input type="text" class="chat-input" id="chatInput" placeholder="Ask about quantum biology or your research papers...">
+                            <button class="send-btn" id="sendBtn">
+                                <i class="fas fa-paper-plane-top"></i> TRANSMIT
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Sidebar: Papers & Vector Search -->
+                <div class="right-sidebar">
+                    <div class="sidebar-title">
+                        <i class="fas fa-file-alt"></i> RESEARCH PAPERS
+                        <span style="margin-left: auto; font-size: 0.9rem; color: var(--neon-pink);" id="paperCount">0</span>
+                    </div>
+                    
+                    <div class="papers-list" id="papersList">
+                        <!-- Research papers will be added here -->
+                    </div>
+                    
+                    <div class="section-divider"></div>
+                    
+                    <div class="vector-search">
+                        <div class="sidebar-title">
+                            <i class="fas fa-vector-square"></i> VECTOR SEMANTIC SEARCH
+                        </div>
+                        
+                        <input type="text" class="vector-input" id="vectorInput" placeholder="Find similar concepts in papers...">
+                        
+                        <div class="vector-results" id="vectorResults">
+                            <!-- Vector search results will appear here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== APPLICATION STATE ==========
+        let currentUser = null;
+        let currentWorkspace = null;
+        let workspaces = [];
+        let conversations = [];
+        let researchPapers = [];
+        let currentContext = [];
+        
+        // ========== DOM ELEMENTS ==========
+        // Auth elements
+        const authModal = document.getElementById('authModal');
+        const appContainer = document.getElementById('appContainer');
+        const loginTab = document.getElementById('loginTab');
+        const registerTab = document.getElementById('registerTab');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const switchToRegister = document.getElementById('switchToRegister');
+        const switchToLogin = document.getElementById('switchToLogin');
+        
+        // Workspace elements
+        const workspaceModal = document.getElementById('workspaceModal');
+        const newWorkspaceBtn = document.getElementById('newWorkspaceBtn');
+        const workspaceList = document.getElementById('workspaceList');
+        const createWorkspaceBtn = document.getElementById('createWorkspaceBtn');
+        const cancelWorkspaceBtn = document.getElementById('cancelWorkspaceBtn');
+        
+        // Chat elements
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        
+        // Search elements
+        const searchTabs = document.querySelectorAll('.search-tab');
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const importPanel = document.getElementById('importPanel');
+        
+        // Paper elements
+        const papersList = document.getElementById('papersList');
+        const paperCount = document.getElementById('paperCount');
+        
+        // Vector search
+        const vectorInput = document.getElementById('vectorInput');
+        const vectorResults = document.getElementById('vectorResults');
+        
+        // Other UI elements
+        const userAvatar = document.getElementById('userAvatar');
+        const conversationList = document.getElementById('conversationList');
+        const currentContextSpan = document.getElementById('currentContext');
+        const contextPapersSpan = document.getElementById('contextPapers');
+        
+        // ========== INITIALIZATION ==========
+        function initApp() {
+            generateCosmicBackground();
+            setupEventListeners();
+            loadSampleData();
+            
+            // Show auth modal by default
+            authModal.classList.remove('hidden');
+            appContainer.classList.add('hidden');
+        }
+        
+        function generateCosmicBackground() {
+            const cosmicBg = document.getElementById('cosmicBg');
+            
+            // Generate stars
+            for (let i = 0; i < 150; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.width = `${Math.random() * 3 + 1}px`;
+                star.style.height = star.style.width;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                star.style.opacity = Math.random() * 0.7 + 0.3;
+                cosmicBg.appendChild(star);
+            }
+        }
+        
+        function loadSampleData() {
+            // Sample workspaces
+            workspaces = [
+                {
+                    id: 1,
+                    name: "Quantum Biology Research",
+                    domain: "biology",
+                    description: "Exploring quantum effects in biological systems",
+                    papers: 12,
+                    conversations: 8,
+                    createdAt: "2024-01-15"
+                },
+                {
+                    id: 2,
+                    name: "AI Consciousness",
+                    domain: "ai",
+                    description: "Studying consciousness in artificial systems",
+                    papers: 8,
+                    conversations: 15,
+                    createdAt: "2024-02-10"
+                },
+                {
+                    id: 3,
+                    name: "Cosmic Quantum Patterns",
+                    domain: "cosmology",
+                    description: "Quantum structures at cosmic scales",
+                    papers: 5,
+                    conversations: 3,
+                    createdAt: "2024-03-05"
+                }
+            ];
+            
+            // Sample conversations
+            conversations = [
+                {
+                    id: 1,
+                    workspaceId: 1,
+                    title: "Quantum Entanglement in Photosynthesis",
+                    preview: "Can you explain the role of quantum coherence in photosynthetic systems?",
+                    timestamp: "2024-03-20 14:30"
+                },
+                {
+                    id: 2,
+                    workspaceId: 1,
+                    title: "DNA Mutation Rates",
+                    preview: "How might quantum tunneling affect DNA mutation rates?",
+                    timestamp: "2024-03-19 11:15"
+                },
+                {
+                    id: 3,
+                    workspaceId: 2,
+                    title: "Consciousness Metrics",
+                    preview: "What metrics could indicate consciousness in AI systems?",
+                    timestamp: "2024-03-18 16:45"
+                }
+            ];
+            
+            // Sample research papers
+            researchPapers = [
+                {
+                    id: 1,
+                    title: "Quantum coherence in photosynthetic energy transfer",
+                    authors: "Engel, G.S. et al.",
+                    year: 2023,
+                    source: "Nature",
+                    abstract: "Evidence for quantum coherence in photosynthetic light-harvesting complexes.",
+                    workspaceId: 1,
+                    vectorEmbedding: [0.8, 0.2, 0.5, 0.9, 0.1]
+                },
+                {
+                    id: 2,
+                    title: "Quantum tunneling in enzyme catalysis",
+                    authors: "Kamerlin, S.C.L. et al.",
+                    year: 2023,
+                    source: "Science",
+                    abstract: "Quantum tunneling effects in enzymatic reactions at physiological temperatures.",
+                    workspaceId: 1,
+                    vectorEmbedding: [0.7, 0.3, 0.6, 0.8, 0.2]
+                },
+                {
+                    id: 3,
+                    title: "Consciousness as a quantum process",
+                    authors: "Hameroff, S. & Penrose, R.",
+                    year: 2022,
+                    source: "Journal of Consciousness Studies",
+                    abstract: "Orchestrated objective reduction theory of consciousness.",
+                    workspaceId: 2,
+                    vectorEmbedding: [0.2, 0.9, 0.1, 0.3, 0.8]
+                }
+            ];
+        }
+        
+        // ========== EVENT LISTENERS ==========
+        function setupEventListeners() {
+            // Auth listeners
+            loginTab.addEventListener('click', () => switchAuthTab('login'));
+            registerTab.addEventListener('click', () => switchAuthTab('register'));
+            switchToRegister.addEventListener('click', (e) => {
+                e.preventDefault();
+                switchAuthTab('register');
+            });
+            switchToLogin.addEventListener('click', (e) => {
+                e.preventDefault();
+                switchAuthTab('login');
+            });
+            loginBtn.addEventListener('click', handleLogin);
+            registerBtn.addEventListener('click', handleRegister);
+            
+            // Workspace listeners
+            newWorkspaceBtn.addEventListener('click', () => workspaceModal.classList.remove('hidden'));
+            createWorkspaceBtn.addEventListener('click', createWorkspace);
+            cancelWorkspaceBtn.addEventListener('click', () => workspaceModal.classList.add('hidden'));
+            
+            // Chat listeners
+            sendBtn.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+            
+            // Search listeners
+            searchTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const searchType = tab.dataset.searchType;
+                    switchSearchTab(searchType);
+                });
+            });
+            
+            searchBtn.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') performSearch();
+            });
+            
+            // Import listeners
+            document.querySelectorAll('.import-option').forEach(option => {
+                option.addEventListener('click', handleImport);
+            });
+            
+            // Vector search listener
+            vectorInput.addEventListener('input', performVectorSearch);
+        }
+        
+        // ========== AUTHENTICATION FUNCTIONS ==========
+        function switchAuthTab(tab) {
+            if (tab === 'login') {
+                loginTab.classList.add('active');
+                registerTab.classList.remove('active');
+                loginForm.classList.remove('hidden');
+                registerForm.classList.add('hidden');
+            } else {
+                loginTab.classList.remove('active');
+                registerTab.classList.add('active');
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+            }
+        }
+        
+        function handleLogin() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!email || !password) {
+                showNotification('Please enter quantum credentials', 'error');
+                return;
+            }
+            
+            // Simulate login
+            currentUser = {
+                name: email.split('@')[0],
+                email: email,
+                initials: email.substring(0, 2).toUpperCase()
+            };
+            
+            userAvatar.textContent = currentUser.initials;
+            
+            // Switch to app
+            authModal.classList.add('hidden');
+            appContainer.classList.remove('hidden');
+            
+            // Initialize app data
+            renderWorkspaces();
+            renderConversations();
+            renderPapers();
+            updatePaperCount();
+            
+            showNotification(`Quantum welcome, ${currentUser.name}!`, 'success');
+            addWelcomeMessage();
+        }
+        
+        function handleRegister() {
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirm = document.getElementById('registerConfirm').value;
+            
+            if (!name || !email || !password || !confirm) {
+                showNotification('All dimensional fields required', 'error');
+                return;
+            }
+            
+            if (password !== confirm) {
+                showNotification('Temporal passkeys do not align', 'error');
+                return;
+            }
+            
+            // Simulate registration
+            currentUser = {
+                name: name,
+                email: email,
+                initials: name.substring(0, 2).toUpperCase()
+            };
+            
+            userAvatar.textContent = currentUser.initials;
+            
+            // Switch to app
+            authModal.classList.add('hidden');
+            appContainer.classList.remove('hidden');
+            
+            // Initialize app data
+            renderWorkspaces();
+            renderConversations();
+            renderPapers();
+            updatePaperCount();
+            
+            showNotification(`Dimensional identity established, ${name}!`, 'success');
+            addWelcomeMessage();
+            
+            // Switch to login tab for next time
+            switchAuthTab('login');
+        }
+        
+        // ========== WORKSPACE FUNCTIONS ==========
+        function createWorkspace() {
+            const name = document.getElementById('workspaceName').value;
+            const domain = document.getElementById('workspaceDomain').value;
+            const description = document.getElementById('workspaceDescription').value;
+            
+            if (!name) {
+                showNotification('Workspace designation required', 'error');
+                return;
+            }
+            
+            const newWorkspace = {
+                id: workspaces.length + 1,
+                name: name,
+                domain: domain,
+                description: description,
+                papers: 0,
+                conversations: 0,
+                createdAt: new Date().toISOString().split('T')[0]
+            };
+            
+            workspaces.push(newWorkspace);
+            workspaceModal.classList.add('hidden');
+            
+            // Clear form
+            document.getElementById('workspaceName').value = '';
+            document.getElementById('workspaceDescription').value = '';
+            
+            renderWorkspaces();
+            selectWorkspace(newWorkspace.id);
+            
+            showNotification(`Workspace "${name}" initialized`, 'success');
+        }
+        
+        function renderWorkspaces() {
+            workspaceList.innerHTML = '';
+            
+            workspaces.forEach(workspace => {
+                const workspaceItem = document.createElement('div');
+                workspaceItem.className = `workspace-item ${currentWorkspace?.id === workspace.id ? 'active' : ''}`;
+                workspaceItem.dataset.id = workspace.id;
+                
+                workspaceItem.innerHTML = `
+                    <div class="workspace-name">${workspace.name}</div>
+                    <div class="workspace-meta">
+                        <span>${workspace.papers} papers</span>
+                        <span>${workspace.conversations} conv</span>
+                    </div>
+                `;
+                
+                workspaceItem.addEventListener('click', () => selectWorkspace(workspace.id));
+                workspaceList.appendChild(workspaceItem);
+            });
+        }
+        
+        function selectWorkspace(workspaceId) {
+            currentWorkspace = workspaces.find(w => w.id === workspaceId);
+            
+            // Update UI
+            renderWorkspaces();
+            updateCurrentContext();
+            filterPapersByWorkspace();
+            filterConversationsByWorkspace();
+            
+            // Add workspace context to chat
+            addAIMessage(`Workspace context set to "${currentWorkspace.name}". I am now aware of ${currentWorkspace.papers} research papers in this dimensional domain.`);
+        }
+        
+        // ========== CONVERSATION FUNCTIONS ==========
+        function renderConversations() {
+            conversationList.innerHTML = '';
+            
+            conversations.forEach(conversation => {
+                const convItem = document.createElement('div');
+                convItem.className = 'conversation-item';
+                convItem.dataset.id = conversation.id;
+                
+                convItem.innerHTML = `
+                    <div style="font-weight: 600; color: #F0F0FF;">${conversation.title}</div>
+                    <div class="conversation-preview">${conversation.preview}</div>
+                    <div style="font-size: 0.8rem; color: #8888CC; margin-top: 5px;">${conversation.timestamp}</div>
+                `;
+                
+                convItem.addEventListener('click', () => loadConversation(conversation.id));
+                conversationList.appendChild(convItem);
+            });
+        }
+        
+        function filterConversationsByWorkspace() {
+            if (!currentWorkspace) return;
+            
+            const filtered = conversations.filter(c => c.workspaceId === currentWorkspace.id);
+            
+            conversationList.innerHTML = '';
+            filtered.forEach(conversation => {
+                const convItem = document.createElement('div');
+                convItem.className = 'conversation-item';
+                
+                convItem.innerHTML = `
+                    <div style="font-weight: 600; color: #F0F0FF;">${conversation.title}</div>
+                    <div class="conversation-preview">${conversation.preview}</div>
+                    <div style="font-size: 0.8rem; color: #8888CC; margin-top: 5px;">${conversation.timestamp}</div>
+                `;
+                
+                conversationList.appendChild(convItem);
+            });
+        }
+        
+        function loadConversation(conversationId) {
+            // In a real app, this would load the full conversation
+            showNotification('Loading quantum conversation...', 'info');
+        }
+        
+        function saveConversation(message, response) {
+            const newConversation = {
+                id: conversations.length + 1,
+                workspaceId: currentWorkspace?.id || 1,
+                title: message.substring(0, 30) + (message.length > 30 ? '...' : ''),
+                preview: message.substring(0, 60) + (message.length > 60 ? '...' : ''),
+                timestamp: new Date().toLocaleString()
+            };
+            
+            conversations.unshift(newConversation);
+            renderConversations();
+        }
+        
+        // ========== RESEARCH PAPER FUNCTIONS ==========
+        function renderPapers() {
+            papersList.innerHTML = '';
+            
+            researchPapers.forEach(paper => {
+                const paperItem = document.createElement('div');
+                paperItem.className = 'paper-item';
+                paperItem.dataset.id = paper.id;
+                
+                paperItem.innerHTML = `
+                    <div class="paper-title">${paper.title}</div>
+                    <div class="paper-meta">
+                        <span>${paper.authors}</span>
+                        <span>${paper.year}</span>
+                    </div>
+                `;
+                
+                paperItem.addEventListener('click', () => {
+                    // Add paper to context
+                    addToContext(paper);
+                    showNotification(`Paper added to quantum context: "${paper.title}"`, 'success');
+                });
+                
+                papersList.appendChild(paperItem);
+            });
+        }
+        
+        function filterPapersByWorkspace() {
+            if (!currentWorkspace) return;
+            
+            const filtered = researchPapers.filter(p => p.workspaceId === currentWorkspace.id);
+            
+            papersList.innerHTML = '';
+            filtered.forEach(paper => {
+                const paperItem = document.createElement('div');
+                paperItem.className = 'paper-item';
+                
+                paperItem.innerHTML = `
+                    <div class="paper-title">${paper.title}</div>
+                    <div class="paper-meta">
+                        <span>${paper.authors}</span>
+                        <span>${paper.year}</span>
+                    </div>
+                `;
+                
+                paperItem.addEventListener('click', () => {
+                    addToContext(paper);
+                    showNotification(`Paper added to quantum context: "${paper.title}"`, 'success');
+                });
+                
+                papersList.appendChild(paperItem);
+            });
+            
+            updatePaperCount();
+        }
+        
+        function addToContext(paper) {
+            if (!currentContext.some(p => p.id === paper.id)) {
+                currentContext.push(paper);
+                updateContextUI();
+            }
+        }
+        
+        function updateContextUI() {
+            contextPapersSpan.textContent = currentContext.length;
+            
+            if (currentWorkspace) {
+                currentContextSpan.textContent = `${currentWorkspace.name} (${currentContext.length} papers)`;
+            }
+        }
+        
+        function updatePaperCount() {
+            if (!currentWorkspace) {
+                paperCount.textContent = researchPapers.length;
+            } else {
+                const count = researchPapers.filter(p => p.workspaceId === currentWorkspace.id).length;
+                paperCount.textContent = count;
+            }
+        }
+        
+        // ========== SEARCH FUNCTIONS ==========
+        function switchSearchTab(searchType) {
+            searchTabs.forEach(tab => {
+                if (tab.dataset.searchType === searchType) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+            
+            if (searchType === 'import') {
+                importPanel.classList.remove('hidden');
+            } else {
+                importPanel.classList.add('hidden');
+            }
+        }
+        
+        function performSearch() {
+            const query = searchInput.value.trim();
+            if (!query) return;
+            
+            const activeTab = document.querySelector('.search-tab.active');
+            const searchType = activeTab.dataset.searchType;
+            
+            if (searchType === 'semantic') {
+                semanticSearch(query);
+            } else if (searchType === 'vector') {
+                vectorSearch(query);
+            }
+        }
+        
+        function semanticSearch(query) {
+            showNotification(`Performing semantic search across quantum databases...`, 'info');
+            
+            // Simulate search results
+            setTimeout(() => {
+                const results = researchPapers.filter(paper => 
+                    paper.title.toLowerCase().includes(query.toLowerCase()) ||
+                    paper.abstract.toLowerCase().includes(query.toLowerCase())
+                );
+                
+                if (results.length > 0) {
+                    showNotification(`Found ${results.length} quantum research matches`, 'success');
+                    
+                    // Display results in chat
+                    addAIMessage(`I found ${results.length} research papers matching "${query}":\n\n` +
+                        results.map((paper, i) => 
+                            `${i+1}. **${paper.title}** (${paper.year})\n   ${paper.authors}\n   ${paper.abstract.substring(0, 100)}...`
+                        ).join('\n\n'));
+                } else {
+                    showNotification('No quantum matches found in current dimensional plane', 'warning');
+                    addAIMessage(`No direct matches found for "${query}" in the current research database. Try refining your quantum search parameters or importing relevant papers.`);
+                }
+            }, 1500);
+        }
+        
+        function performVectorSearch() {
+            const query = vectorInput.value.trim();
+            if (!query) {
+                vectorResults.innerHTML = '';
+                return;
+            }
+            
+            vectorSearch(query);
+        }
+        
+        function vectorSearch(query) {
+            // Simple cosine similarity simulation
+            const queryVector = generateRandomVector();
+            
+            const results = researchPapers.map(paper => {
+                const similarity = cosineSimilarity(queryVector, paper.vectorEmbedding);
+                return { paper, similarity };
+            })
+            .sort((a, b) => b.similarity - a.similarity)
+            .slice(0, 5);
+            
+            displayVectorResults(results);
+        }
+        
+        function generateRandomVector() {
+            return Array(5).fill(0).map(() => Math.random());
+        }
+        
+        function cosineSimilarity(vecA, vecB) {
+            let dot = 0, magA = 0, magB = 0;
+            for (let i = 0; i < vecA.length; i++) {
+                dot += vecA[i] * vecB[i];
+                magA += vecA[i] * vecA[i];
+                magB += vecB[i] * vecB[i];
+            }
+            return dot / (Math.sqrt(magA) * Math.sqrt(magB));
+        }
+        
+        function displayVectorResults(results) {
+            vectorResults.innerHTML = '';
+            
+            if (results.length === 0) {
+                vectorResults.innerHTML = '<div class="vector-result">No semantic matches found</div>';
+                return;
+            }
+            
+            results.forEach(result => {
+                const resultDiv = document.createElement('div');
+                resultDiv.className = 'vector-result';
+                
+                const similarityPercent = Math.round(result.similarity * 100);
+                resultDiv.innerHTML = `
+                    <div style="font-weight: 600; margin-bottom: 5px;">${result.paper.title}</div>
+                    <div style="font-size: 0.85rem; color: #B8B8FF; margin-bottom: 5px;">${result.paper.authors}</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.8rem; color: var(--quantum-green);">
+                            ${similarityPercent}% semantic match
+                        </span>
+                        <button style="background: none; border: 1px solid var(--cyber-blue); color: var(--cyber-blue); padding: 3px 10px; border-radius: 10px; font-size: 0.8rem; cursor: pointer;" 
+                                onclick="addToContext(${JSON.stringify(result.paper).replace(/"/g, '&quot;')})">
+                            Add to Context
+                        </button>
+                    </div>
+                `;
+                
+                vectorResults.appendChild(resultDiv);
+            });
+        }
+        
+        function handleImport(event) {
+            const importType = event.currentTarget.dataset.importType;
+            
+            let message = '';
+            switch(importType) {
+                case 'arxiv':
+                    message = 'Opening arXiv quantum archives...';
+                    break;
+                case 'doi':
+                    message = 'Ready for DOI quantum identifier input...';
+                    break;
+                case 'upload':
+                    message = 'Activating quantum PDF upload portal...';
+                    break;
+                case 'bibtex':
+                    message = 'Preparing BibTeX dimensional parser...';
+                    break;
+            }
+            
+            showNotification(message, 'info');
+            
+            // Simulate import
+            setTimeout(() => {
+                const newPaper = {
+                    id: researchPapers.length + 1,
+                    title: `Imported Paper on ${importType.toUpperCase()}`,
+                    authors: "Researcher et al.",
+                    year: 2024,
+                    source: importType === 'arxiv' ? 'arXiv' : 'Imported',
+                    abstract: `This paper was imported via ${importType} quantum channel.`,
+                    workspaceId: currentWorkspace?.id || 1,
+                    vectorEmbedding: generateRandomVector()
+                };
+                
+                researchPapers.push(newPaper);
+                renderPapers();
+                updatePaperCount();
+                
+                showNotification(`Paper successfully imported via ${importType.toUpperCase()} quantum channel`, 'success');
+            }, 2000);
+        }
+        
+        // ========== CHAT FUNCTIONS ==========
+        function addWelcomeMessage() {
+            addAIMessage(`Greetings, ${currentUser?.name || 'Researcher'}! I am Cosmic ResearchPilot, your quantum-cognitive research assistant.\n\n` +
+                        `I am currently attuned to ${researchPapers.length} research papers across ${workspaces.length} dimensional workspaces.\n\n` +
+                        `To begin, select a workspace or import research papers to establish our quantum context.`);
+        }
+        
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+            
+            // Add user message
+            addUserMessage(message);
+            chatInput.value = '';
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            // Generate AI response with context awareness
+            setTimeout(() => {
+                hideTypingIndicator();
+                const response = generateContextAwareResponse(message);
+                addAIMessage(response);
+                saveConversation(message, response);
+            }, 1500 + Math.random() * 1000);
+        }
+        
+        function addUserMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message user-message';
+            messageDiv.innerHTML = `<i class="fas fa-user-astronaut" style="color: var(--cyber-blue); margin-right: 8px;"></i>${message}`;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        function addAIMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ai-message';
+            
+            let contextNote = '';
+            if (currentContext.length > 0) {
+                const paperTitles = currentContext.map(p => p.title.substring(0, 30) + '...').join(', ');
+                contextNote = `<div class="message-context">Context: ${currentContext.length} paper(s) loaded</div>`;
+            }
+            
+            messageDiv.innerHTML = `
+                <i class="fas fa-stars" style="color: var(--star-yellow); margin-right: 8px;"></i>${message}
+                ${contextNote}
+            `;
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        function showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'quantum-typing';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = `
+                <div class="quantum-dot"></div>
+                <div class="quantum-dot"></div>
+                <div class="quantum-dot"></div>
+            `;
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        function hideTypingIndicator() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+        
+        function generateContextAwareResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            // Check if we have context papers
+            let contextString = '';
+            if (currentContext.length > 0) {
+                contextString = ` I'm analyzing this in context of ${currentContext.length} research paper(s) in our quantum workspace.`;
+                
+                // Check if message relates to context papers
+                const relevantPapers = currentContext.filter(paper => 
+                    lowerMessage.includes(paper.title.toLowerCase().split(' ')[0]) ||
+                    paper.abstract.toLowerCase().includes(lowerMessage.split(' ')[0])
+                );
+                
+                if (relevantPapers.length > 0) {
+                    contextString += ` Specifically, your query relates to "${relevantPapers[0].title}" which discusses ${relevantPapers[0].abstract.substring(0, 80)}...`;
+                }
+            }
+            
+            // Generate quantum-themed response
+            const quantumResponses = [
+                `Quantum analysis complete.${contextString} The probability matrices suggest: ${getRandomQuantumInsight()}`,
+                `Traversing knowledge dimensions...${contextString} I detect ${Math.floor(Math.random() * 5) + 1} significant correlations with existing research.`,
+                `Consciousness-quantum analysis engaged.${contextString} Observer effect suggests ${getRandomResearchDirection()}`,
+                `Multidimensional scanning...${contextString} Found ${Math.floor(Math.random() * 3) + 1} parallel research streams with ${Math.floor(Math.random() * 40) + 50}% coherence.`
+            ];
+            
+            return quantumResponses[Math.floor(Math.random() * quantumResponses.length)];
+        }
+        
+        function getRandomQuantumInsight() {
+            const insights = [
+                "quantum tunneling may play a role in enzymatic efficiency beyond classical limits.",
+                "neural microtubules could exhibit quantum coherence on picosecond timescales.",
+                "photosynthetic systems achieve near-perfect energy transfer through quantum effects.",
+                "DNA replication may involve quantum probabilistic base pairing.",
+                "consciousness could arise from quantum processes in microtubules."
+            ];
+            return insights[Math.floor(Math.random() * insights.length)];
+        }
+        
+        function getRandomResearchDirection() {
+            const directions = [
+                "further investigation into temporal coherence measurements.",
+                "experimental validation across multiple dimensional frameworks.",
+                "computational modeling with quantum-classical hybrid approaches.",
+                "cross-disciplinary synthesis with consciousness studies."
+            ];
+            return directions[Math.floor(Math.random() * directions.length)];
+        }
+        
+        // ========== UTILITY FUNCTIONS ==========
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 30px;
+                padding: 15px 25px;
+                border-radius: 12px;
+                background: ${type === 'error' ? 'rgba(255, 46, 147, 0.9)' : 
+                           type === 'success' ? 'rgba(6, 214, 160, 0.9)' : 
+                           'rgba(0, 245, 255, 0.9)'};
+                color: white;
+                font-family: 'Space Grotesk', sans-serif;
+                font-weight: 500;
+                z-index: 3000;
+                border: 1px solid ${type === 'error' ? 'var(--neon-pink)' : 
+                         type === 'success' ? 'var(--quantum-green)' : 
+                         'var(--cyber-blue)'};
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+                animation: slideIn 0.3s ease;
+            `;
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+            
+            // Add CSS for animation if not already present
+            if (!document.querySelector('#notification-styles')) {
+                const style = document.createElement('style');
+                style.id = 'notification-styles';
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    @keyframes slideOut {
+                        from { transform: translateX(0); opacity: 1; }
+                        to { transform: translateX(100%); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+        
+        function updateCurrentContext() {
+            if (currentWorkspace) {
+                currentContextSpan.textContent = currentWorkspace.name;
+            }
+        }
+        
+        // ========== INITIALIZE APP ==========
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
